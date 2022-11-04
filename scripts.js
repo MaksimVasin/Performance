@@ -52,27 +52,15 @@
             }
 
             let index = list.indexOf(selected);
-            if (event.which === 37) {
-                // left
-                --index;
-            } else if (event.which === 39) {
-                // right
-                ++index;
-            } else if (event.which === 36) {
-                // home
-                index = 0;
-            } else if (event.which === 35) {
-                // end
-                index = list.length - 1;
-            } else {
-                return;
+            switch(event.which) {
+                case 37: --index; break;
+                case 39: ++index; break;
+                case 36: index = 0; break;
+                case 35: index = list.length - 1; break;
+                default: return
             }
 
-            if (index >= list.length) {
-                index = 0;
-            } else if (index < 0) {
-                index = list.length - 1;
-            }
+            index = index >= list.length ? 0 : list.length - 1;
 
             selectTab(list[index]);
             event.preventDefault();
@@ -86,14 +74,15 @@
         node.addEventListener('click', () => {
             expanded = !expanded;
             node.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-            node.querySelector('.header__menu-text').textContent = expanded ? 'Закрыть меню' : 'Открыть меню';
             links.classList.toggle('header__links_opened', expanded);
             links.classList.add('header__links-toggled');
         });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        Array.from(document.querySelectorAll('.main__devices')).forEach(makeTabs);
-        Array.from(document.querySelectorAll('.header__menu')).forEach(makeMenu);
+        //Array.from(document.querySelectorAll('.main__devices')).forEach(makeTabs);
+        //Array.from(document.querySelectorAll('.header__menu')).forEach(makeMenu);
+        makeTabs(document.querySelector('.main__devices'))
+        makeMenu(document.querySelector('.header__menu'))
     });
 })();
