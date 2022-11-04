@@ -59,9 +59,7 @@
                 case 35: index = list.length - 1; break;
                 default: return
             }
-
             index = index >= list.length ? 0 : list.length - 1;
-
             selectTab(list[index]);
             event.preventDefault();
         });
